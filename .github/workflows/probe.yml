@@ -1,0 +1,14 @@
+name: Windows probe
+on: workflow_dispatch
+jobs:
+  probe:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: professor-ayman/net-doctor
+          token: ${{ secrets.SOURCE_TOKEN }}
+      - uses: subosito/flutter-action@v2
+        with: { channel: stable, cache: true }
+      - run: flutter pub get
+      - run: flutter test test/win_probe_test.dart -r expanded
